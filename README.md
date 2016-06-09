@@ -1,5 +1,6 @@
 Red Hat Subscription
 =========
+[![Galaxy](https://img.shields.io/badge/galaxy-samdoran.redhat--subscription-blue.svg?style=flat)](https://galaxy.ansible.com/samdoran/redhat-subscription)
 
 Manage Red Hat subscritions and repositories.
 
