@@ -1,0 +1,19 @@
+Vagrant.configure(2) do |config|
+
+  # RHEL 6
+  config.vm.define "rhel6" do |rhel6|
+    rhel6.vm.box = "samdoran/rhel6"
+    rhel6.vm.hostname = "java-rhel6"
+  end
+
+  # RHEL 7
+  config.vm.define "rhel7" do |rhel7|
+    rhel7.vm.box = "samdoran/rhel7"
+    rhel7.vm.hostname = "java-rhel7"
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "vagrant.yml"
+  end
+
+end

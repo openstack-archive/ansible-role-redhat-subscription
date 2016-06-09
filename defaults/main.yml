@@ -1,0 +1,9 @@
+rhn_username: "{{ lookup('env', 'RHN_USERNAME') }}"
+rhn_password: "{{ lookup('env', 'RHN_PASSWORD') }}"
+
+rhsub_state: enable
+rhsub_autosubscribe: True
+
+rhsub_repos: {}
+  # - name: rhel-7-server-extras-rpms     # wildcard or repo name
+  #   state: enable                       # enable or disable

@@ -1,0 +1,6 @@
+---
+- hosts: all
+  remote_user: vagrant
+  become: True
+  roles:
+    - redhat-subscription
