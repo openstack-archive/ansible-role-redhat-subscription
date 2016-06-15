@@ -1,6 +1,6 @@
 - name: Check that this is Red Hat
   assert:
-    that: "{{ ansible_distribution }} == 'RedHat'"
+    that: "ansible_distribution == 'RedHat'"
   tags:
     - rhsub
 
