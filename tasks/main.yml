@@ -4,7 +4,7 @@
   tags:
     - rhsub
 
-- name: Register Red Hat subscription
+- name: Manage Red Hat subscription
   redhat_subscription:
     username: "{{ rhn_username }}"
     password: "{{ rhn_password }}"
@@ -15,9 +15,9 @@
     - rhsub_register
 
 - name: Configure repository subscriptions
-  command: subscription-manage repos --{{ item.state }} --{{ item.name }}
+  command: subscription-manager repos --{{ item.state }} {{ item.name }}
   with_items: "{{ rhsub_repos }}"
-  when: not rhsub_autosubscribe
+  when: rhsub_repos is defined
   tags:
     - rhsub
     - rhsub_repos

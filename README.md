@@ -17,8 +17,8 @@ Role Variables
 | `rhn_username` | `{{ lookup('env', 'RHN_USERNAME') }}` | Red Hat Port username. |
 | `rhn_password` | `{{ lookup('env', 'RHN_PASSWORD') }}` | Red Hat Portal password. |
 | `rhsub_state` | `enable` | Whether to enable or disable a Red Hat subscription. |
-| `rhsub_autosubscribe` | `True` | Whether or not to autosubscibe to available repositories. If set, will skip the task that manages individual repositories.  |
-| `rhsub_repos` | `{}` | List of repositories to enable or disable. See `defaults/main.yml` for examples. |
+| `rhsub_autosubscribe` | `True` | Whether or not to autosubscibe to available repositories. |
+| `rhsub_repos` | `[undefined]` | If defined, the list of repositories to enable or disable. See `defaults/main.yml` for examples. |
 
 Dependencies
 ------------
