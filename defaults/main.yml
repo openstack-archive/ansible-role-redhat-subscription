@@ -7,3 +7,10 @@ rhsub_autosubscribe: True
 # rhsub_repos:
   # - name: rhel-7-server-extras-rpms     # wildcard or repo name
   #   state: enable                       # enable or disable
+
+# /etc/rhsm/rhsm.conf settings
+rhsub_rhsm_port: 443
+# rhsub_rhsm_proxy_hostname: ""
+# rhsub_rhsm_proxy_port: ""
+# rhsub_rhsm_proxy_user: ""
+# rhsub_rhsm_proxy_password: ""
