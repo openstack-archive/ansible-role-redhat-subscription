@@ -27,8 +27,7 @@
 
 - name: Configure repository subscriptions
   command: subscription-manager repos --{{ item.state }} {{ item.name }}
-  with_items: "{{ rhsub_repos }}"
-  when: rhsub_repos is defined
+  with_items: "{{ rhsub_repos | default([]) }}"
   tags:
     - rhsub
     - rhsub_repos
