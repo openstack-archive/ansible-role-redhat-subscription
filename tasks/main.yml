@@ -26,8 +26,11 @@
     - rhsub_register
 
 - name: Configure repository subscriptions
-  command: subscription-manager repos --{{ item.state }} {{ item.name }}
+  redhat_repos:
+    repos: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
   with_items: "{{ rhsub_repos | default([]) }}"
+  when: rhsub_state == 'present'
   tags:
     - rhsub
     - rhsub_repos

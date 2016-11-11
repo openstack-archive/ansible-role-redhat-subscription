@@ -17,7 +17,7 @@ Role Variables
 | `rhn_username` | `{{ lookup('env', 'RHN_USERNAME') }}` | Red Hat Portal username. |
 | `rhn_password` | `{{ lookup('env', 'RHN_PASSWORD') }}` | Red Hat Portal password. |
 | `rhsub_state` | `enable` | Whether to enable or disable a Red Hat subscription. |
-| `rhsub_autosubscribe` | `True` | Whether or not to autosubscibe to available repositories. |
+| `rhsub_autosubscribe` | `yes` | Whether or not to autosubscibe to available repositories. |
 | `rhsub_repos` | `[undefined]` | If defined, the list of repositories to enable or disable. See `defaults/main.yml` for examples. |
 
 Dependencies
@@ -35,7 +35,9 @@ Example Playbook
         rhn_password: "{{ vault_rhn_password }}"
         rhsub_repos:
           - name: rhel-7-server-extras-rpms
-            state: enable
+            state: present
+          - name: rhel-7-server-rh-common-rpms
+          - name: rhel-7-server-openstack-8-rpms
 
       roles:
          - samdoran.redhat-subscription

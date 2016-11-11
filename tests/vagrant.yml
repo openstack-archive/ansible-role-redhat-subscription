@@ -5,8 +5,10 @@
   vars:
     rhsub_state: present
     rhsub_repos:
-      - name: rhel-7-server-extras-rpms     # wildcard or repo name
-        state: enable
+      - name: rhel-7-server-extras-rpms
+        state: present
+      - name: rhel-7-server-rh-common-rpms
+      - name: rhel-7-server-openstack-8-rpms
 
   roles:
     - redhat-subscription
