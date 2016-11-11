@@ -1,6 +1,12 @@
----
 - hosts: all
   remote_user: vagrant
-  become: True
+  become: yes
+
+  vars:
+    rhsub_state: present
+    rhsub_repos:
+      - name: rhel-7-server-extras-rpms     # wildcard or repo name
+        state: enable
+
   roles:
     - redhat-subscription
