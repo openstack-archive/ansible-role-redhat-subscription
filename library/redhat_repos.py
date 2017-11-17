@@ -17,6 +17,8 @@
 
 from ansible.module_utils.basic import AnsibleModule
 import os
+import re
+import subprocess
 
 DOCUMENTATION = '''
 module: redhat_repos
@@ -63,7 +65,8 @@ stdout:
     description: output from subscription-manager
     returned: success, when needed
     type: string
-    sample: "Loaded plugins: product-id, refresh-packagekit, subscription-manager\nUpdating Red Hat repositories"
+    sample: "Loaded plugins: product-id, refresh-packagekit, subscription-manager\n
+    Updating Red Hat repositories"
 '''
 
 
@@ -75,16 +78,34 @@ def main():
             "choices": ['present', 'absent'],
             "type": 'str'
         },
-        "only": {"default": 'no', "required": False, "type": "str", "choices": ['yes', 'no']},
+        "only": {"default": 'no', "required": False,
+                 "type": "str", "choices": ['yes', 'no']},
 
     }
     module = AnsibleModule(argument_spec=argument_spec)
     repos = module.params['repos']
     state = module.params['state']
     only = module.params['only']
+
+    repo_output = subprocess.check_output(
+        'subscription-manager repos --list-enabled'.split(' '))
+    curr_repo_list = re.findall("Repo ID:\s+(.+)", repo_output)
+    repos_to_install = set(repos).difference(set(curr_repo_list))
+    if not repos_to_install:
+        if only == 'yes':
+            if (len(curr_repo_list) == len(repos)):
+                module.exit_json(
+                    changed=False,
+                    msg="only == true  and all repos are installed")
+        else:
+            module.exit_json(
+                changed=False,
+                msg="only == false and all repos installed")
+
+    repos = repos_to_install
     if state == 'present':
         if only == 'yes':
-            os.system("subscription-manager repos --disable='*'" % repos)
+            os.system("subscription-manager repos --disable='*'")
         repos = ' '.join(['--enable=' + repo for repo in repos])
         # result = os.system("subscription-manager repos %s" % repos)
         result = os.popen("subscription-manager repos %s" % repos).read()
