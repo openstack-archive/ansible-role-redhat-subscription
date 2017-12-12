@@ -2,7 +2,7 @@ galaxy_info:
   author: Sam Doran
   description: "Manage Red Hat subscription and repositories."
   company:
-  license: MIT
+  license: Apache 2.0
   min_ansible_version: 1.9
 
   platforms:
