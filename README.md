@@ -16,6 +16,8 @@ Role Variables
 |-------------------|---------------------|----------------------|
 | `rhn_username` | No default | Red Hat Portal username. |
 | `rhn_password` | No default | Red Hat Portal password. |
+| `rhn_activation_key` | No default | Red Hat Portal Activation Key. |
+| `rhn_org_id` | No default | Red Hat Portal Organization Identifier. |
 | `rhsub_state` | `enable` | Whether to enable or disable a Red Hat subscription. |
 | `rhsub_autosubscribe` | `yes` | Whether or not to autosubscibe to available repositories. |
 | `rhsub_repos` | `[undefined]` | If defined, the list of repositories to enable or disable. See `defaults/main.yml` for examples. |

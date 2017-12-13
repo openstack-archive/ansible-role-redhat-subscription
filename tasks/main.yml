@@ -19,6 +19,8 @@
   redhat_subscription:
     username: "{{ rhn_username|default(omit) }}"
     password: "{{ rhn_password|default(omit) }}"
+    activationkey: "{{ rhn_activation_key|default(omit) }}"
+    org_id: "{{ rhn_org_id|default(omit) }}"
     state: "{{ rhsub_state|default(omit) }}"
     autosubscribe: "{{ rhsub_autosubscribe|default(omit) }}"
   tags:

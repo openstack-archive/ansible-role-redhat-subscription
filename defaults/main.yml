@@ -1,6 +1,8 @@
 # These parameters aren't required, so no default is provided:
 # rhn_username: joe
 # rhn_password: secrete
+# rhn_activation_key: AAA-BBB-CCC-DDD
+# rhn_ord_id: 1234
 
 rhsub_state: present                      # present or absent
 rhsub_autosubscribe: True
