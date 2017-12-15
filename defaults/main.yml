@@ -1,5 +1,6 @@
-rhn_username: "{{ lookup('env', 'RHN_USERNAME') }}"
-rhn_password: "{{ lookup('env', 'RHN_PASSWORD') }}"
+# These parameters aren't required, so no default is provided:
+# rhn_username: joe
+# rhn_password: secrete
 
 rhsub_state: present                      # present or absent
 rhsub_autosubscribe: True

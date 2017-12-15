@@ -17,10 +17,10 @@
 
 - name: Manage Red Hat subscription
   redhat_subscription:
-    username: "{{ rhn_username }}"
-    password: "{{ rhn_password }}"
-    state: "{{ rhsub_state }}"
-    autosubscribe: "{{ rhsub_autosubscribe }}"
+    username: "{{ rhn_username|default(omit) }}"
+    password: "{{ rhn_password|default(omit) }}"
+    state: "{{ rhsub_state|default(omit) }}"
+    autosubscribe: "{{ rhsub_autosubscribe|default(omit) }}"
   tags:
     - rhsub
     - rhsub_register
