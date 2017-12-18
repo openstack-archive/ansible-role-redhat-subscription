@@ -6,6 +6,7 @@
 
 rhsub_state: present                      # present or absent
 rhsub_autosubscribe: True
+rhsub_method: portal                      # portal or satellite
 
 # rhsub_repos:
   # - name: rhel-7-server-extras-rpms     # wildcard or repo name

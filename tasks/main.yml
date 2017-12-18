@@ -36,3 +36,7 @@
   tags:
     - rhsub
     - rhsub_repos
+
+- import_tasks: "{{ rhsub_method }}.yml"
+  tags:
+    - rhsub
