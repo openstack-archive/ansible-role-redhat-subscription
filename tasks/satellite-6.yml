@@ -1,0 +1,14 @@
+- name: SATELLITE 6 | Install katello RPM
+  yum:
+    name: "{{ rhsm_satellite_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
+    state: present
+
+- name: SATELLITE 6 | Get Satellite certificates
+  get_url:
+    url: "{{ rhsm_satellite_url }}//pub/katello-rhsm-consumer"
+    dest: /tmp/katello-rhsm-consumer
+
+- name: SATELLITE 6 | Run katello script
+  command: bash /tmp/katello-rhsm-consumer
+  args:
+    creates: /etc/rhsm/ca/katello-server-ca.pem

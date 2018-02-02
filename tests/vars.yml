@@ -1,0 +1,9 @@
+rhsm_username: "{{ lookup('env', 'RHSM_USERNAME') }}"
+rhsm_password: "{{ lookup('env', 'RHSM_PASSWORD') }}"
+rhsm_pool_ids: "{{ lookup('env', 'RHSM_POOL_ID') }}"
+rhsm_state: present
+rhsm_repos:
+  - name: rhel-7-server-extras-rpms
+    state: absent
+  - name: rhel-7-server-rh-common-rpms
+  - name: rhel-7-server-openstack-12-tools-rpms

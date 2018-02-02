@@ -14,14 +14,14 @@ Role Variables
 
 | Name              | Default Value       | Description          |
 |-------------------|---------------------|----------------------|
-| `rhn_username` | No default | Red Hat Portal username. |
-| `rhn_password` | No default | Red Hat Portal password. |
-| `rhn_activation_key` | No default | Red Hat Portal Activation Key. |
-| `rhn_org_id` | No default | Red Hat Portal Organization Identifier. |
-| `rhsub_method` | `portal` | Set to `portal` or `satellite` depending on where you are registering. |
-| `rhsub_state` | `enable` | Whether to enable or disable a Red Hat subscription. |
-| `rhsub_autosubscribe` | `yes` | Whether or not to autosubscibe to available repositories. |
-| `rhsub_repos` | `[undefined]` | If defined, the list of repositories to enable or disable. See `defaults/main.yml` for examples. |
+| `rhsm_username` | No default | Red Hat Portal username. |
+| `rhsm_password` | No default | Red Hat Portal password. |
+| `rhsm_activation_key` | No default | Red Hat Portal Activation Key. |
+| `rhsm_org_id` | No default | Red Hat Portal Organization Identifier. |
+| `rhsm_method` | `portal` | Set to `portal` or `satellite` depending on where you are registering. |
+| `rhsm_state` | `enable` | Whether to enable or disable a Red Hat subscription. |
+| `rhsm_autosubscribe` | `yes` | Whether or not to autosubscibe to available repositories. |
+| `rhsm_repos` | `[]` | The list of repositories to enable or disable. See `defaults/main.yml` for examples. |
 
 Dependencies
 ------------
@@ -34,13 +34,13 @@ Example Playbook
     - hosts: all
 
       vars:
-        rhn_username: bob.smith@acme.com
-        rhn_password: "{{ vault_rhn_password }}"
-        rhsub_repos:
+        rhsm_username: bob.smith@acme.com
+        rhsm_password: "{{ vault_rhsm_password }}"
+        rhsm_repos:
           - name: rhel-7-server-extras-rpms
             state: present
-          - name: rhel-7-server-rh-common-rpms
-          - name: rhel-7-server-openstack-8-rpms
+          - rhel-7-server-rh-common-rpms
+          - rhel-7-server-openstack-8-rpms
 
       roles:
          - samdoran.redhat-subscription

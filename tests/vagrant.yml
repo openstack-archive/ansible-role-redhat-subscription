@@ -3,12 +3,12 @@
   become: yes
 
   vars:
-    rhsub_state: present
-    rhsub_repos:
+    rhsm_state: present
+    rhsm_repos:
       - name: rhel-7-server-extras-rpms
         state: present
       - name: rhel-7-server-rh-common-rpms
       - name: rhel-7-server-openstack-8-rpms
 
   roles:
-    - redhat-subscription
+    - ansible-role-redhat-subscription

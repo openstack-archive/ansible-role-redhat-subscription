@@ -1,0 +1,33 @@
+- name: SATELLITE | Check for Satellite 5
+  uri:
+    url: "{{ rhsm_satellite_url }}/rhn/Login.do"
+    validate_certs: no
+    status_code: 200, 404
+  register: _sat5_check
+  run_once: yes
+  tags:
+    - rhsm_satellite
+
+- name: SATELLITE | Check for Satellite 6
+  uri:
+    url: "{{ rhsm_satellite_url }}/katello/api/ping"
+    validate_certs: no
+    status_code: 200, 404
+  register: _sat6_check
+  run_once: yes
+  tags:
+    - rhsm_satellite
+
+- name: SATELLITE | Set Satellite version
+  set_fact:
+    rhsm_satellite_version: "{% if _sat5_check['status'] == 200 %}5{% elif _sat6_check['status'] == 200 %}6{% endif %}"
+  tags:
+    - rhsm_satellite
+
+- import_tasks: satellite-{{ rhsm_satellite_version }}.yml
+  tags:
+    - rhsm_satellite
+
+- import_tasks: portal.yml
+  tags:
+    - rhsm

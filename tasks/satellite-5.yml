@@ -1,0 +1,8 @@
+- name: SATELLITE 5 | Install TLS certificate
+  uri:
+    url: "{{ rhsm_satellite_url }}/pub/rhsm_ORG_TRUSTED_SSL_CERT"
+    dest: /usr/share/rhn
+    validate_certs: no
+
+- name: SATELLITE 5 | Register to Satellite 5
+  command: rhreg_ks --serverURL='{{ rhsm_satellite_url }}/XMLRPC'

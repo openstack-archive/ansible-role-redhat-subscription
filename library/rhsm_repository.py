@@ -31,18 +31,18 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 
 DOCUMENTATION = '''
 ---
-module: redhat_repository
-short_description: Manage Red Hat repositories using the subscription-manager
+module: rhsm_repository
+short_description: Manage RHSM repositories using the subscription-manager
                    command
 description:
-  - Manage(List/Enable/Disable) Red Hat repositories to the Red Hat
+  - Manage(List/Enable/Disable) RHSM repositories to the Red Hat
     Subscription Management entitlement platform using the
-    subscription-manager command.
+    C(subscription-manager) command.
 version_added: '2.5'
 author: Giovanni Sciortino (@giovannisciortino)
 notes:
-  - In order to manage Red Hat repositories the system must be already
-    registered to Red Hat manually or using the ansible module
+  - In order to manage RHSM repositories the system must be already
+    registered to RHSM manually or using the ansible module
     redhat_subscription.
   - One option between name and list must be defined, both options in the
     same task must not be defined.
@@ -54,7 +54,7 @@ options:
     description:
       - If state is equal to present or disabled, indicates the desired
         repository state.
-    choices: [present, absent]
+    choices: [present, enabled, absent, disabled]
     required: True
     default: "present"
   name:
@@ -66,26 +66,26 @@ options:
 '''
 
 EXAMPLES = '''
-- name: Enable a Red Hat repository
-  redhat_repository:
+- name: Enable a RHSM repository
+  rhsm_repository:
     name: rhel-7-server-rpms
 
 - name: Disable all Red Hat repositories
-  redhat_repository:
+  rhsm_repository:
     name: '*'
     state: disabled
 
 - name: Enable all repositories starting with rhel-6-server
-  redhat_repository:
+  rhsm_repository:
     name: rhel-6-server*
     state: enabled
 
 - name: Disable all repositories except rhel-7-server-rpms
-  redhat_repository:
+  rhsm_repository:
     name: "{{ item }}"
     state: disabled
   with_items: "{{
-    redhat_repository.repositories |
+    rhsm_repository.repositories |
     map(attribute='id') |
     difference(['rhel-7-server-rpms']) }}"
 '''
@@ -213,7 +213,7 @@ def repository_modify(module, state, name):
             module.fail_json(results=results,
                              msg="%s is not a valid repository ID" % repoid)
         for repo in matched_existing_repo[repoid]:
-            if state == 'disabled':
+            if state in ['disabled', 'absent']:
                 if repo['enabled']:
                     changed = True
                     diff_before += "Repository '%s' is enabled" % repo['id']
@@ -221,7 +221,7 @@ def repository_modify(module, state, name):
                 results.append(
                     "Repository '%s' is disabled for this system" % repo['id'])
                 rhsm_arguments += ['--disable', repo['id']]
-            elif state == 'enabled':
+            elif state in ['enabled', 'present']:
                 if not repo['enabled']:
                     changed = True
                     diff_before += "Repository '%s' is disabled" % repo['id']
@@ -230,8 +230,8 @@ def repository_modify(module, state, name):
                     "Repository '%s' is enabled for this system" % repo['id'])
                 rhsm_arguments += ['--enable', repo['id']]
 
-    diff = {'before': diff_before + ' for this system\n',
-            'after': diff_after + ' for this system\n',
+    diff = {'before': diff_before,
+            'after': diff_after,
             'before_header': "RHSM repositories",
             'after_header': "RHSM repositories"}
 
@@ -246,7 +246,8 @@ def main():
     module = AnsibleModule(
         argument_spec=dict(
             name=dict(type='list', required=True),
-            state=dict(choices=['enabled', 'disabled'], default='enabled'),
+            state=dict(choices=['enabled', 'present', 'disabled', 'absent'],
+                       default='enabled'),
         ),
         supports_check_mode=True,
     )

@@ -10,7 +10,7 @@ hostname = subscription.rhn.redhat.com
 prefix = /subscription
 
 # Server port:
-port = {{ rhsub_rhsm_port }}
+port = {{ rhsm_rhsm_port }}
 
 # Set to 1 to disable certificate validation:
 insecure = 0
@@ -20,23 +20,23 @@ insecure = 0
 ssl_verify_depth = 3
 
 # an http proxy server to use
-{% if rhsub_rhsm_proxy_hostname is defined %}
-proxy_hostname = {{ rhsub_rhsm_proxy_hostname }}
+{% if rhsm_rhsm_proxy_hostname is defined %}
+proxy_hostname = {{ rhsm_rhsm_proxy_hostname }}
 {% endif %}
 
 # port for http proxy server
-{% if rhsub_rhsm_proxy_port is defined %}
-proxy_port = {{ rhsub_rhsm_proxy_port }}
+{% if rhsm_rhsm_proxy_port is defined %}
+proxy_port = {{ rhsm_rhsm_proxy_port }}
 {% endif %}
 
-{% if rhsub_rhsm_proxy_user is defined %}
+{% if rhsm_rhsm_proxy_user is defined %}
 # user name for authenticating to an http proxy, if needed
-proxy_user = {{ rhsub_rhsm_proxy_user }}
+proxy_user = {{ rhsm_rhsm_proxy_user }}
 {% endif %}
 
-{% if rhsub_rhsm_proxy_password is defined %}
+{% if rhsm_rhsm_proxy_password is defined %}
 # password for basic http proxy auth, if needed
-proxy_password = {{ rhsub_rhsm_proxy_password }}
+proxy_password = {{ rhsm_rhsm_proxy_password }}
 {% endif %}
 
 [rhsm]

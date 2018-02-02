@@ -1,5 +1,8 @@
 galaxy_info:
-  author: Sam Doran
+  author:
+    - Sam Doran
+    - David Critch
+    - Emilien Macchi
   description: "Manage Red Hat subscription and repositories."
   company:
   license: Apache 2.0

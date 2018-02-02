@@ -1,10 +1,10 @@
-- name: Check that this is Red Hat
+- name: Ensure this is Red Hat
   assert:
     that: "ansible_distribution == 'RedHat'"
   tags:
-    - rhsub
+    - rhsm
 
-- name: Configure Red Hat subscirption manager
+- name: Configure Red Hat Subscription Manager
   template:
     src: rhsm.conf.j2
     dest: /etc/rhsm/rhsm.conf
@@ -12,31 +12,9 @@
     group: root
     mode: 0644
   tags:
-    - rhsub
-    - rhsub_rhsm
+    - rhsm
+    - rhsm_rhsm
 
-- name: Manage Red Hat subscription
-  redhat_subscription:
-    username: "{{ rhn_username|default(omit) }}"
-    password: "{{ rhn_password|default(omit) }}"
-    activationkey: "{{ rhn_activation_key|default(omit) }}"
-    org_id: "{{ rhn_org_id|default(omit) }}"
-    state: "{{ rhsub_state|default(omit) }}"
-    autosubscribe: "{{ rhsub_autosubscribe|default(omit) }}"
+- import_tasks: "{{ rhsm_method | default('portal') }}.yml"
   tags:
-    - rhsub
-    - rhsub_register
-
-- name: Configure repository subscriptions
-  redhat_repos:
-    repos: "{{ item.name }}"
-    state: "{{ item.state | default('present') }}"
-  with_items: "{{ rhsub_repos | default([]) }}"
-  when: rhsub_state == 'present'
-  tags:
-    - rhsub
-    - rhsub_repos
-
-- import_tasks: "{{ rhsub_method }}.yml"
-  tags:
-    - rhsub
+    - rhsm

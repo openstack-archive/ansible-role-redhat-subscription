@@ -1,0 +1,22 @@
+- name: Manage Red Hat subscription
+  redhat_subscription:
+    username: "{{ rhsm_username | default(omit) }}"
+    password: "{{ rhsm_password | default(omit) }}"
+    activationkey: "{{ rhsm_activation_key | default(omit) }}"
+    org_id: "{{ rhsm_org_id | default(omit) }}"
+    state: "{{ rhsm_state | default(omit) }}"
+    autosubscribe: "{{ rhsm_autosubscribe | default(omit) }}"
+    consumer_name: "{{ rhsm_consumer_hostname | default(omit) }}"
+  tags:
+    - rhsm
+    - rhsm_register
+
+- name: Configure repository subscriptions
+  rhsm_repository:
+    name: "{{ item.name | default(item) }}"
+    state: "{{ item.state | default('enabled') }}"
+  with_items: "{{ rhsm_repos | default([]) }}"
+  when: rhsm_state == 'present'
+  tags:
+    - rhsm
+    - rhsm_repos

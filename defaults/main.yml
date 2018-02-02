@@ -1,20 +1,20 @@
 # These parameters aren't required, so no default is provided:
-# rhn_username: joe
-# rhn_password: secrete
-# rhn_activation_key: AAA-BBB-CCC-DDD
-# rhn_ord_id: 1234
+# rhsm_username: joe
+# rhsm_password: secrete
+# rhsm_activation_key: AAA-BBB-CCC-DDD
+# rhsm_ord_id: 1234
 
-rhsub_state: present                      # present or absent
-rhsub_autosubscribe: True
-rhsub_method: portal                      # portal or satellite
+rhsm_state: present                      # present or absent
+rhsm_autosubscribe: True
+rhsm_method: portal                      # portal or satellite
 
-# rhsub_repos:
+rhsm_repos: []
   # - name: rhel-7-server-extras-rpms     # wildcard or repo name
   #   state: enable                       # enable or disable
 
 # /etc/rhsm/rhsm.conf settings
-rhsub_rhsm_port: 443
-# rhsub_rhsm_proxy_hostname: ""
-# rhsub_rhsm_proxy_port: ""
-# rhsub_rhsm_proxy_user: ""
-# rhsub_rhsm_proxy_password: ""
+rhsm_rhsm_port: 443
+# rhsm_rhsm_proxy_hostname: ""
+# rhsm_rhsm_proxy_port: ""
+# rhsm_rhsm_proxy_user: ""
+# rhsm_rhsm_proxy_password: ""
