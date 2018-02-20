@@ -1,79 +1,57 @@
 # {{ ansible_managed }}
-# Red Hat Subscription Manager Configuration File:
-
-# Unified Entitlement Platform Configuration
 [server]
-# Server hostname:
-hostname = subscription.rhn.redhat.com
-
-# Server prefix:
-prefix = /subscription
-
-# Server port:
+hostname = {{ rhsm_server_hostname }}
+prefix = {{ rhsm_server_prefix }}
 port = {{ rhsm_rhsm_port }}
-
-# Set to 1 to disable certificate validation:
-insecure = 0
-
-# Set the depth of certs which should be checked
-# when validating a certificate
-ssl_verify_depth = 3
-
-# an http proxy server to use
+insecure = {{ rhsm_insecure | int }}
+ssl_verify_depth = {{ rhsm_ssl_verify_depth }}
 {% if rhsm_rhsm_proxy_hostname is defined %}
 proxy_hostname = {{ rhsm_rhsm_proxy_hostname }}
 {% endif %}
-
-# port for http proxy server
 {% if rhsm_rhsm_proxy_port is defined %}
 proxy_port = {{ rhsm_rhsm_proxy_port }}
 {% endif %}
-
 {% if rhsm_rhsm_proxy_user is defined %}
-# user name for authenticating to an http proxy, if needed
 proxy_user = {{ rhsm_rhsm_proxy_user }}
 {% endif %}
-
 {% if rhsm_rhsm_proxy_password is defined %}
-# password for basic http proxy auth, if needed
 proxy_password = {{ rhsm_rhsm_proxy_password }}
 {% endif %}
 
 [rhsm]
-# Content base URL:
-baseurl= https://cdn.redhat.com
-
-# Server CA certificate location:
-ca_cert_dir = /etc/rhsm/ca/
-
-# Default CA cert to use when generating yum repo configs:
-repo_ca_cert = %(ca_cert_dir)sredhat-uep.pem
-
-# Where the certificates should be stored
-productCertDir = /etc/pki/product
-entitlementCertDir = /etc/pki/entitlement
-consumerCertDir = /etc/pki/consumer
-
-# Manage generation of yum repositories for subscribed content:
-manage_repos = 1
-
-# Refresh repo files with server overrides on every yum command
-full_refresh_on_yum = 0
-
-# If set to zero, the client will not report the package profile to
-# the subscription management service.
-report_package_profile = 1
-
-# The directory to search for subscription manager plugins
-pluginDir = /usr/share/rhsm-plugins
-
-# The directory to search for plugin configuration files
-pluginConfDir = /etc/rhsm/pluginconf.d
+baseurl = {{ rhsm_baseurl }}
+ca_cert_dir = {{ rhsm_ca_cert_dir }}
+repo_ca_cert = {{ rhsm_repo_ca_cert }}
+productCertDir = {{ rhsm_product_cert_dir }}
+entitlementCertDir = {{ rhsm_entitlement_cert_dir }}
+consumerCertDir = {{ rhsm_consumer_cert_dir }}
+manage_repos = {{ rhsm_manage_repos | int }}
+full_refresh_on_yum = {{ rhsm_full_refresh_on_yum | int }}
+report_package_profile = {{ rhsm_report_package_profile | int }}
+pluginDir = {{ rhsm_plugin_dir }}
+pluginConfDir = {{ rhsm_plugin_conf_dir }}
 
 [rhsmcertd]
-# Interval to run cert check (in minutes):
-certCheckInterval = 240
-# Interval to run auto-attach (in minutes):
-autoAttachInterval = 1440
+certCheckInterval = {{ rhsm_cert_check_interval }}
+autoAttachInterval = {{ rhsm_auto_attach_interval }}
 
-
+[logging]
+default_log_level = {{ rhsm_logging.default }}
+{% if rhsm_logging.subscription_manager is defined %}
+subscription_manager = {{ rhsm_logging.subscription_manager }}
+{% endif %}
+{% if rhsm_logging.subscription_manager_managercli is defined %}
+subscription_manager.managercli = {{ rhsm_logging.subscription_manager_managercli }}
+{% endif %}
+{% if rhsm_logging.rhsm is defined %}
+rhsm = {{ rhsm_logging.rhsm }}
+{% endif %}
+{% if rhsm_logging.rhsm_connection is defined %}
+rhsm.connection = {{ rhsm_logging.rhsm_connection }}
+{% endif %}
+{% if rhsm_logging.rhsm_app is defined %}
+rhsm-app = {{ rhsm_logging.rhsm_app }}
+{% endif %}
+{% if rhsm_logging.rhsm_app_rhsmd is defined %}
+rhsm-app.rhsmd = {{ rhsm_logging.rhsm_app_rhsmd }}
+{% endif %}

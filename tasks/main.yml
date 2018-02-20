@@ -13,7 +13,7 @@
     mode: 0644
   tags:
     - rhsm
-    - rhsm_rhsm
+    - rhsm_conf
 
 - import_tasks: "{{ rhsm_method | default('portal') }}.yml"
   tags:
