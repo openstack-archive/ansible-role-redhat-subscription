@@ -1,0 +1,12 @@
+- project:
+    templates:
+      - publish-to-pypi
+    check:
+      jobs:
+        - openstack-tox-linters
+    gate:
+      jobs:
+        - openstack-tox-linters
+    post:
+      jobs:
+        - publish-openstack-python-branch-tarball
