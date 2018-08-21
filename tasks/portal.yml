@@ -1,15 +1,25 @@
-- name: Manage Red Hat subscription
+- name: Manage Red Hat subscription with username
   redhat_subscription:
     username: "{{ rhsm_username | default(omit) }}"
     password: "{{ rhsm_password | default(omit) }}"
-    activationkey: "{{ rhsm_activation_key | default(omit) }}"
-    org_id: "{{ rhsm_org_id | default(omit) }}"
     state: "{{ rhsm_state | default(omit) }}"
     autosubscribe: "{{ rhsm_autosubscribe | default(omit) }}"
     consumer_name: "{{ rhsm_consumer_hostname | default(omit) }}"
   tags:
     - rhsm
     - rhsm_register
+  when: rhsm_username is defined    
+
+- name: Manage Red Hat subscription with activation key
+  redhat_subscription:
+    activationkey: "{{ rhsm_activation_key | default(omit) }}"
+    org_id: "{{ rhsm_org_id | default(omit) }}"
+    state: "{{ rhsm_state | default(omit) }}"
+    consumer_name: "{{ rhsm_consumer_hostname | default(omit) }}"
+  tags:
+    - rhsm
+    - rhsm_register
+  when: rhsm_activation_key is defined
 
 - name: Configure repository subscriptions
   rhsm_repository:
