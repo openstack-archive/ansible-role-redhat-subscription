@@ -20,6 +20,7 @@ Role Variables
 | `rhsm_password` | `[undefined]` | Red Hat Portal password. |
 | `rhsm_activation_key` | `[undefined]` | Red Hat Portal Activation Key. |
 | `rhsm_org_id` | `[undefined]` | Red Hat Portal Organization Identifier. |
+| `rhsm_pool_ids` | `[undefined]` | Red Hat Subscription pool IDs to consume. |
 | `rhsm_method` | `portal` | Set to `portal` or `satellite` depending on where you are registering. |
 | `rhsm_state` | `present` | Whether to enable or disable a Red Hat subscription. |
 | `rhsm_autosubscribe` | `yes` | Whether or not to autosubscribe to available repositories. |

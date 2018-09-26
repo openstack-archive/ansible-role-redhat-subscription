@@ -4,6 +4,7 @@
     password: "{{ rhsm_password | default(omit) }}"
     activationkey: "{{ rhsm_activation_key | default(omit) }}"
     org_id: "{{ rhsm_org_id | default(omit) }}"
+    pool_ids: "{{ rhsm_pool_ids | default(omit) }}"
     state: "{{ rhsm_state | default(omit) }}"
     autosubscribe: "{{ rhsm_autosubscribe | default(omit) }}"
     consumer_name: "{{ rhsm_consumer_hostname | default(omit) }}"
