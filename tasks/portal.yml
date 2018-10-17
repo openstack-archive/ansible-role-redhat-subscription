@@ -8,6 +8,8 @@
     state: "{{ rhsm_state | default(omit) }}"
     autosubscribe: "{{ rhsm_autosubscribe | default(omit) }}"
     consumer_name: "{{ rhsm_consumer_hostname | default(omit) }}"
+    force_register: "{{ rhsm_force_register | default(omit) }}"
+    rhsm_baseurl: "{{ rhsm_baseurl | default(omit) }}"
   tags:
     - rhsm
     - rhsm_register
@@ -17,7 +19,9 @@
     name: "{{ item.name | default(item) }}"
     state: "{{ item.state | default('enabled') }}"
   with_items: "{{ rhsm_repos | default([]) }}"
-  when: rhsm_state == 'present'
+  when:
+    - rhsm_state == 'present'
+    - rhsm_activation_key is not defined
   tags:
     - rhsm
     - rhsm_repos

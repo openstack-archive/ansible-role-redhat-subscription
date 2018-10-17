@@ -2,6 +2,7 @@
   yum:
     name: "{{ rhsm_satellite_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
     state: present
+    validate_certs: "{{ not rhsm_insecure }}"
 
 - name: SATELLITE 6 | Get Satellite certificates
   get_url:

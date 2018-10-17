@@ -3,9 +3,9 @@
 # rhsm_password: secrete
 # rhsm_activation_key: AAA-BBB-CCC-DDD
 # rhsm_ord_id: 1234
+# rhsm_autosubscribe: yes # or no (note it's mutually exclusive to rhsm_activation_key)
 
 rhsm_state: present                      # present or absent
-rhsm_autosubscribe: yes
 rhsm_method: portal                      # portal or satellite
 
 rhsm_repos: []
@@ -24,6 +24,7 @@ rhsm_ssl_verify_depth: 3
 # rhsm_rhsm_proxy_user: ""
 # rhsm_rhsm_proxy_password: ""
 rhsm_baseurl: https://cdn.redhat.com
+rhsm_satellite_url: "{{ rhsm_baseurl | urlsplit('scheme') ~ '://' ~ rhsm_baseurl | urlsplit('hostname') }}"
 rhsm_ca_cert_dir: /etc/rhsm/ca/
 rhsm_repo_ca_cert: '%(ca_cert_dir)sredhat-uep.pem'
 rhsm_product_cert_dir: /etc/pki/product

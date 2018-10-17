@@ -16,15 +16,16 @@ Role Variables
 
 | Name              | Default Value       | Description          |
 |-------------------|---------------------|----------------------|
+| `rhsm_method` | `portal` | Method to use for activation: `portal` or `satellite`. If `satellite`, the role will determine the Satellite Server version and take the appropriate registration actions. |
 | `rhsm_username` | `[undefined]` | Red Hat Portal username. |
 | `rhsm_password` | `[undefined]` | Red Hat Portal password. |
 | `rhsm_activation_key` | `[undefined]` | Red Hat Portal Activation Key. |
 | `rhsm_org_id` | `[undefined]` | Red Hat Portal Organization Identifier. |
 | `rhsm_pool_ids` | `[undefined]` | Red Hat Subscription pool IDs to consume. |
-| `rhsm_method` | `portal` | Set to `portal` or `satellite` depending on where you are registering. |
 | `rhsm_state` | `present` | Whether to enable or disable a Red Hat subscription. |
-| `rhsm_autosubscribe` | `yes` | Whether or not to autosubscribe to available repositories. |
-| `rhsm_method` | `portal` | Method to use for activation: `portal` or `satellite`. If `satellite`, the role will determine the Satellite Server version and take the appropriate registration actions. |
+| `rhsm_autosubscribe` | `[undefined]` | Whether or not to autosubscribe to available repositories. |
+| `rhsm_consumer_hostname` | `[undefined]` | Name of the system to use when registering. Defaults to using the system hostname if undefined. |
+| `rhsm_force_register` | `[undefined]` | Whether or not to force registration. Will not force registration if undefined. |
 | `rhsm_repos` | `[]` | The list of repositories to enable or disable. See `defaults/main.yml` for examples. |
 | `rhsm_rhsm_port` | `443` | Port to use when connecting to subscription server. |
 | `rhsm_server_hostname` | `subscription.rhn.redhat.com` | FQDN of subscription server. |
@@ -36,6 +37,7 @@ Role Variables
 | `rhsm_rhsm_proxy_user` | `[undefined]` | Username to use for proxy server. |
 | `rhsm_rhsm_proxy_password` | `[undefined]` | Password to use for proxy server. Save this in an Ansible Vault or other secret store. |
 | `rhsm_baseurl` | `https://cdn.redhat.com` | Base URL for content. |
+| `rhsm_satellite_url` | `[see defaults/main.yml]` | URL of the Satellite server that will be probed to determine the Satellite version. Uses the scheme and hostname of `rhsm_baseurl` by default.  |
 | `rhsm_ca_cert_dir` | `/etc/rhsm/ca/` | Server CA certificate directory. |
 | `rhsm_repo_ca_cert` | `%(ca_cert_dir)sredhat-uep.pem` | Default CA to use when generating yum rep configs. |
 | `rhsm_product_cert_dir` | `/etc/pki/product` | Product certificate directory. |

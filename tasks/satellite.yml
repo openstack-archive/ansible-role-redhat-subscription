@@ -24,10 +24,8 @@
   tags:
     - rhsm_satellite
 
-- import_tasks: satellite-{{ rhsm_satellite_version }}.yml
+- include_tasks: satellite-{{ rhsm_satellite_version }}.yml
   tags:
     - rhsm_satellite
 
 - import_tasks: portal.yml
-  tags:
-    - rhsm
