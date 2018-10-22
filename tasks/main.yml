@@ -1,6 +1,6 @@
 - name: Ensure this is Red Hat
   assert:
-    that: "ansible_distribution == 'RedHat'"
+    that: "ansible_facts.distribution == 'RedHat'"
   tags:
     - rhsm
 

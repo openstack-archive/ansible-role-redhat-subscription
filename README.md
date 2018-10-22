@@ -25,11 +25,11 @@ Role Variables
 | `rhsm_state` | `present` | Whether to enable or disable a Red Hat subscription. |
 | `rhsm_autosubscribe` | `[undefined]` | Whether or not to autosubscribe to available repositories. |
 | `rhsm_consumer_hostname` | `[undefined]` | Name of the system to use when registering. Defaults to using the system hostname if undefined. |
-| `rhsm_force_register` | `[undefined]` | Whether or not to force registration. Will not force registration if undefined. |
+| `rhsm_force_register` | `False` | Whether or not to force registration. |
 | `rhsm_repos` | `[]` | The list of repositories to enable or disable. See `defaults/main.yml` for examples. |
 | `rhsm_rhsm_port` | `443` | Port to use when connecting to subscription server. |
 | `rhsm_server_hostname` | `subscription.rhn.redhat.com` | FQDN of subscription server. |
-| `rhsm_server_prefix` | `/subscription` | Server prefix |
+| `rhsm_server_prefix` | `/subscription` or `/rhsm` | RHS server prefix. `/subscription` when using registering via `portal`, `/rhsm` when registering via `satellite`. |
 | `rhsm_insecure` | `False` | Disable certificate validation. |
 | `rhsm_ssl_verify_depth` | `3` | Depths certificates should be validated when checking. |
 | `rhsm_rhsm_proxy_hostname` | `[undefined]` | FQDN of outbound proxy server. |
@@ -39,7 +39,6 @@ Role Variables
 | `rhsm_baseurl` | `https://cdn.redhat.com` | Base URL for content. |
 | `rhsm_satellite_url` | `[see defaults/main.yml]` | URL of the Satellite server that will be probed to determine the Satellite version. Uses the scheme and hostname of `rhsm_baseurl` by default.  |
 | `rhsm_ca_cert_dir` | `/etc/rhsm/ca/` | Server CA certificate directory. |
-| `rhsm_repo_ca_cert` | `%(ca_cert_dir)sredhat-uep.pem` | Default CA to use when generating yum rep configs. |
 | `rhsm_product_cert_dir` | `/etc/pki/product` | Product certificate directory. |
 | `rhsm_entitlement_cert_dir` | `/etc/pki/entitlement` | Entitlement certificate directory. |
 | `rhsm_consumer_cert_dir` | `/etc/pki/consumer` | Consumer certificate directory. |

@@ -3,12 +3,23 @@
   become: yes
 
   vars:
-    rhsm_state: present
-    rhsm_repos:
-      - name: rhel-7-server-extras-rpms
-        state: present
-      - name: rhel-7-server-rh-common-rpms
-      - name: rhel-7-server-openstack-8-rpms
+    rhsm_username: "{{ lookup('env', 'RHSM_USERNAME') }}"
+    rhsm_password: "{{ lookup('env', 'RHSM_PASSWORD') }}"
+    rhsm_pool_ids: "{{ lookup('env', 'RHSM_POOL_ID') }}"
+    rhsm_state: absent
+    # rhsm_force_register: yes
+    rhsm_repos: "{{ repos[ansible_distribution ~ '-' ~ ansible_distribution_major_version] }}"
+
+    repos:
+      RedHat-6:
+        - name: rhel-{{ ansible_distribution_major_version }}-server-extras-rpms
+          state: present
+        - name: rhel-{{ ansible_distribution_major_version }}-server-rh-common-rpms
+      RedHat-7:
+        - name: rhel-{{ ansible_distribution_major_version }}-server-extras-rpms
+          state: present
+        - name: rhel-{{ ansible_distribution_major_version }}-server-rh-common-rpms
+        - name: rhel-{{ ansible_distribution_major_version }}-server-openstack-12-tools-rpms
 
   roles:
     - ansible-role-redhat-subscription

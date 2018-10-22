@@ -1,15 +1,46 @@
-- name: SATELLITE 6 | Install katello RPM
-  yum:
-    name: "{{ rhsm_satellite_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
-    state: present
-    validate_certs: "{{ not rhsm_insecure }}"
+- name: SATELLITE 6 | Set Satellite server CA as a fact
+  set_fact:
+    rhsm_katello_ca: "{{ lookup('url', rhsm_satellite_url ~ '/pub/katello-server-ca.crt',  validate_certs=False, split_lines=False) }}"
 
-- name: SATELLITE 6 | Get Satellite certificates
-  get_url:
-    url: "{{ rhsm_satellite_url }}//pub/katello-rhsm-consumer"
-    dest: /tmp/katello-rhsm-consumer
+- block:
+    - name: Ensure appropriate version of subscription-manager is installed
+      assert:
+        fail_msg: The installed version of subscription-manager is too old.
+        that:
+          - packages['subscription-manager'][0]['version'] is version_compare('1.10', '>=')
+  rescue:
+    - name: Attempt to update subscription-manager
+      yum:
+        name: subscription-manager
+        state: latest
 
-- name: SATELLITE 6 | Run katello script
-  command: bash /tmp/katello-rhsm-consumer
-  args:
-    creates: /etc/rhsm/ca/katello-server-ca.pem
+    - name: Ensure appropriate version of subscription-manager is installed
+      assert:
+        fail_msg: The installed version of subscription-manager is too old.
+        that:
+          - packages['subscription-manager'][0]['version'] is version_compare('1.10', '>=')
+
+- name: SATELLITE 6 | Set RHSM facts
+  copy:
+    content: "{{ rhsm_facts | to_json }}\n"
+    dest: /etc/rhsm/facts/katello.facts
+  vars:
+    rhsm_facts:
+      network.hostname-override: "{{ ansible_facts.fqdn }}"
+
+- name: Configure yum plugins
+  ini_file:
+    path: /etc/yum/pluginconf.d/{{ item.file }}
+    section: "{{ item.section | default('main') }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  loop: "{{ rhsm_yum_plugins }}"
+
+- name: SATELLITE 6 | Install CA certificates
+  copy:
+    content: "{{ rhsm_katello_ca }}\n"
+    dest: /etc/rhsm/ca/{{ item }}
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ rhsm_ca_files }}"
