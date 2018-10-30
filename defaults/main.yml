@@ -7,7 +7,7 @@
 
 rhsm_state: present                      # present or absent
 rhsm_method: portal                      # portal or satellite
-rhsm_force_registration: False
+rhsm_force_register: False
 
 rhsm_repos: []
   # - name: rhel-7-server-extras-rpms     # wildcard or repo name
