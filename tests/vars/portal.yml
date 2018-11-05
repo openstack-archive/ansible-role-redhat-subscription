@@ -1,0 +1,15 @@
+rhsm_username: "{{ lookup('env', 'RHSM_USERNAME') }}"
+rhsm_password: "{{ lookup('env', 'RHSM_PASSWORD') }}"
+rhsm_pool_ids: "{{ lookup('env', 'RHSM_POOL_ID') }}"
+rhsm_repos: "{{ repos[ansible_distribution ~ '-' ~ ansible_distribution_major_version] }}"
+# rhsm_state: present
+# rhsm_repos_purge: True
+
+repos:
+  RedHat-6:
+    - rhel-{{ ansible_distribution_major_version }}-server-extras-rpms
+    - rhel-{{ ansible_distribution_major_version }}-server-rh-common-rpms
+  RedHat-7:
+    - rhel-{{ ansible_distribution_major_version }}-server-extras-rpms
+    - rhel-{{ ansible_distribution_major_version }}-server-rh-common-rpms
+    # - rhel-{{ ansible_distribution_major_version }}-server-openstack-12-tools-rpms

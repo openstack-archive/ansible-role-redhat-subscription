@@ -10,9 +10,6 @@ rhsm_method: portal                      # portal or satellite
 rhsm_force_register: False
 
 rhsm_repos: []
-  # - name: rhel-7-server-extras-rpms     # wildcard or repo name
-  #   state: enabled                      # enabled or disabled
-
 
 ## /etc/rhsm/rhsm.conf settings
 rhsm_rhsm_port: 443

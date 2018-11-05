@@ -1,0 +1,16 @@
+- name: Manage Red Hat subscription
+  redhat_subscription:
+    username: "{{ rhsm_username | default(omit) }}"
+    password: "{{ rhsm_password | default(omit) }}"
+    activationkey: "{{ rhsm_activation_key | default(omit) }}"
+    org_id: "{{ rhsm_org_id | default(omit) }}"
+    pool_ids: "{{ rhsm_pool_ids | default(omit) }}"
+    state: "{{ rhsm_state | default(omit) }}"
+    autosubscribe: "{{ rhsm_autosubscribe | default(omit) }}"
+    consumer_name: "{{ rhsm_consumer_hostname | default(omit) }}"
+    force_register: "{{ rhsm_force_register | default(omit) }}"
+    rhsm_baseurl: "{{ rhsm_baseurl | default(omit) }}"
+  register: subscrition_result
+  tags:
+    - rhsm
+    - rhsm_register

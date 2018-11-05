@@ -63,3 +63,4 @@ playbooks/debug.yml
 
 # Editors
 .*.sw[klmnop]
+/tests/vars/satellite.yml
