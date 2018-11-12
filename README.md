@@ -1,5 +1,5 @@
 Red Hat Subscription
-=========
+====================
 [![Galaxy](https://img.shields.io/badge/galaxy-openstack.redhat--subscription-blue.svg?style=flat)](https://galaxy.ansible.com/openstack/redhat-subscription)
 
 Manage Red Hat subscriptions and repositories. This role supports registering to Satellite 5, Satellite 6, or the Red Hat Customer Portal.
@@ -14,6 +14,7 @@ Provide `rhsm_username` and `rhsm_password` _or_ `rhsm_activation_key`. These op
 Role Variables
 --------------
 
+|-------------------|---------------------|----------------------|
 | Name              | Default Value       | Description          |
 |-------------------|---------------------|----------------------|
 | `rhsm_method` | `portal` | Method to use for activation: `portal` or `satellite`. If `satellite`, the role will determine the Satellite Server version and take the appropriate registration actions. |
@@ -61,19 +62,18 @@ None.
 Example Playbook
 ----------------
 
-    - hosts: all
+::
 
+    - hosts: all
       vars:
         rhsm_username: bob.smith@acme.com
         rhsm_password: "{{ vault_rhsm_password }}"
         rhsm_repos:
-          - name: rhel-7-server-extras-rpms
-            state: present
+          - rhel-7-server-extras-rpms
           - rhel-7-server-rh-common-rpms
           - rhel-7-server-openstack-8-rpms
-
       roles:
-         - openstack.redhat-subscription
+        - openstack.redhat-subscription
 
 License
 -------
