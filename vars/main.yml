@@ -1,4 +1,4 @@
-rhsm_repo_ca_cert: "{{ '%(ca_cert_dir)s' ~ ('katello-server-ca.pem' if rhsm_method == 'satellite' else 'chemeredhat-uep.pem') }}"
+rhsm_repo_ca_cert: "{{ '%(ca_cert_dir)s' ~ ('katello-server-ca.pem' if rhsm_method == 'satellite' else 'redhat-uep.pem') }}"
 rhsm_full_refresh_on_yum: "{{ 1 if rhsm_method == 'satellite' else 0 }}"
 rhsm_yum_plugins:
   - file: product-id.conf
