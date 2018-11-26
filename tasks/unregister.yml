@@ -1,0 +1,12 @@
+- name: Unregister Red Hat subscription
+  redhat_subscription:
+    username: "{{ rhsm_username | default(omit) }}"
+    password: "{{ rhsm_password | default(omit) }}"
+    activationkey: "{{ rhsm_activation_key | default(omit) }}"
+    org_id: "{{ rhsm_org_id | default(omit) }}"
+    pool_ids: "{{ rhsm_pool_ids | default(omit) }}"
+    state: "absent"
+    rhsm_baseurl: "{{ rhsm_baseurl | default(omit) }}"
+  register: subscrition_result
+  tags:
+    - rhsm_unregister

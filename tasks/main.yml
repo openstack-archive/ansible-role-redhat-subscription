@@ -22,3 +22,4 @@
     - rhsm_register
     - rhsm_repos
     - rhsm_satellite
+    - rhsm_unregister
