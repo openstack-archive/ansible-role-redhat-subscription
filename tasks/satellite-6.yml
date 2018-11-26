@@ -20,14 +20,6 @@
         that:
           - packages['subscription-manager'][0]['version'] is version_compare('1.10', '>=')
 
-- name: SATELLITE 6 | Set RHSM facts
-  copy:
-    content: "{{ rhsm_facts | to_json }}\n"
-    dest: /etc/rhsm/facts/katello.facts
-  vars:
-    rhsm_facts:
-      network.hostname-override: "{{ ansible_facts.fqdn }}"
-
 - name: Configure yum plugins
   ini_file:
     path: /etc/yum/pluginconf.d/{{ item.file }}
@@ -36,11 +28,16 @@
     value: "{{ item.value }}"
   loop: "{{ rhsm_yum_plugins }}"
 
-- name: SATELLITE 6 | Install CA certificates
-  copy:
-    content: "{{ rhsm_katello_ca }}\n"
-    dest: /etc/rhsm/ca/{{ item }}
-    owner: root
-    group: root
-    mode: 0644
-  loop: "{{ rhsm_ca_files }}"
+- name: SATELLITE 6 | Install katello-ca-consumer
+  yum:
+    name: "{{ rhsm_satellite_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
+    state: present
+    validate_certs: no
+    disable_gpg_check: yes
+  register: katello_rpm
+
+# This script is provided by katello-ca-consumer and takes care of deploying
+# the katello certificates and prepare the config in RHSM.
+- name: SATELLITE 6 | Execute katello-rhsm-consumer
+  shell: katello-rhsm-consumer
+  when: katello_rpm.changed
