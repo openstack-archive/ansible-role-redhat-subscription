@@ -14,7 +14,6 @@ Provide `rhsm_username` and `rhsm_password` _or_ `rhsm_activation_key`. These op
 Role Variables
 --------------
 
-|-------------------|---------------------|----------------------|
 | Name              | Default Value       | Description          |
 |-------------------|---------------------|----------------------|
 | `rhsm_method` | `portal` | Method to use for activation: `portal` or `satellite`. If `satellite`, the role will determine the Satellite Server version and take the appropriate registration actions. |
