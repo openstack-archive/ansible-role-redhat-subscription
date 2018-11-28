@@ -58,8 +58,20 @@ Dependencies
 
 None.
 
-Example Playbook
-----------------
+
+About repositories
+------------------
+
+If you are using an activation key, the repositories that are associated to
+the subscription are configured in the Red Hat portal or in your local
+instance of Satellite. You can't specify rhsm_repos parameter if you are
+using rhsm_activation_key.
+Otherwise, if you use rhsm_username and rhsm_password, you can use rhsm_repos
+to select which parameters are deployed.
+
+
+Example Playbook with Red Hat portal
+------------------------------------
 
 ::
 
@@ -68,9 +80,26 @@ Example Playbook
         rhsm_username: bob.smith@acme.com
         rhsm_password: "{{ vault_rhsm_password }}"
         rhsm_repos:
+          - rhel-7-server-rpms
           - rhel-7-server-extras-rpms
           - rhel-7-server-rh-common-rpms
-          - rhel-7-server-openstack-8-rpms
+          - rhel-ha-for-rhel-7-server-rpms
+      roles:
+        - openstack.redhat-subscription
+
+Example Playbook with Satellite 6
+---------------------------------
+
+::
+
+    - hosts: all
+      vars:
+        rhsm_activation_key: "secrete_key"
+        rhsm_org_id: "Default_Organization"
+        rhsm_server_hostname: "mysatserver.com"
+        rhsm_baseurl: "https://mysatserver.com/pulp/repos"
+        rhsm_method: satellite
+        rhsm_insecure: yes
       roles:
         - openstack.redhat-subscription
 

@@ -4,6 +4,13 @@
   tags:
     - rhsm
 
+- name: Inform the operators if both rhsm_activation_key and rhsm_repos are given
+  debug:
+    msg: "rhsm_repos and rhsm_activation_key are exclusive options"
+  when:
+    - rhsm_repos | length > 0
+    - rhsm_activation_key is defined
+
 - name: Configure Red Hat Subscription Manager
   template:
     src: rhsm.conf.j2
