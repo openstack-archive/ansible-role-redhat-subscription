@@ -8,7 +8,3 @@ rhsm_yum_plugins:
   - file: subscription-manager.conf
     option: enabled
     value: 1
-
-rhsm_ca_files:
-  - katello-server-ca.pem
-  - katello-default-ca.pem
