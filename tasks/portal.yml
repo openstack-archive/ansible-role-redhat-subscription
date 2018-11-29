@@ -34,7 +34,7 @@
   when:
     - rhsm_repos | length > 0
     - rhsm_state == 'present'
-    - rhsm_activation_key is not defined
+    - rhsm_activation_key is not defined or rhsm_method == 'portal'
   tags:
     - rhsm
     - rhsm_repos

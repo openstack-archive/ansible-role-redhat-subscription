@@ -62,12 +62,12 @@ None.
 About repositories
 ------------------
 
-If you are using an activation key, the repositories that are associated to
-the subscription are configured in the Red Hat portal or in your local
-instance of Satellite. You can't specify rhsm_repos parameter if you are
-using rhsm_activation_key.
-Otherwise, if you use rhsm_username and rhsm_password, you can use rhsm_repos
-to select which parameters are deployed.
+If you are using an activation key with Satellite, the repositories that are
+associated to the subscription are configured in your local instance of Satellite.
+You can't specify rhsm_repos parameter if you are using rhsm_activation_key with
+Satellite.
+Otherwise, when using Portal registration method you can use either rhsm_username and
+rhsm_password or activation key and you can use rhsm_repos to select which repos get deployed.
 
 
 Example Playbook with Red Hat portal
