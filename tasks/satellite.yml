@@ -41,7 +41,7 @@
   tags:
     - rhsm_satellite
 
-- name: SATELLITE | Run Satellite {{ rhsm_satellite_version}} tasks
+- name: SATELLITE | Run Satellite {{ rhsm_satellite_version }} tasks
   include_tasks: satellite-{{ rhsm_satellite_version }}.yml
   when: rhsm_state == 'present'
   tags:
