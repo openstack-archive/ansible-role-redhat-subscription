@@ -1,4 +1,6 @@
 - project:
+    templates:
+      - publish-to-pypi
     check:
       jobs:
         - openstack-tox-linters
