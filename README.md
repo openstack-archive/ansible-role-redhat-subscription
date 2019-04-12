@@ -103,6 +103,18 @@ Example Playbook with Satellite 6
       roles:
         - openstack.redhat-subscription
 
+Example Playbook to unregister
+------------------------------
+
+::
+
+    - hosts: all
+      tasks:
+        - name: Unregister the node
+          include_role:
+            name: openstack.redhat-subscription
+            tasks_from: unregister
+
 License
 -------
 
