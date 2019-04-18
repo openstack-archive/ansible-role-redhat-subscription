@@ -1,4 +1,5 @@
 - name: Unregister Red Hat subscription
   command: subscription-manager remove --all
+  become: true
   tags:
     - rhsm_unregister
