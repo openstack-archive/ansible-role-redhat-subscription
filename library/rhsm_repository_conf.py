@@ -31,9 +31,11 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
                     'status': ['preview'],
                     'supported_by': 'community'}
 
+# TODO(jfrancoa): Rename back into rhsm_repository once
+# Ansible 2.8 is used.
 DOCUMENTATION = '''
 ---
-module: rhsm_repository
+module: rhsm_repository_conf
 short_description:
   - Manage RHSM repositories using the subscription-manager command
 description:
@@ -70,21 +72,21 @@ options:
 
 EXAMPLES = '''
 - name: Enable a RHSM repository
-  rhsm_repository:
+  rhsm_repository_conf:
     name: rhel-7-server-rpms
 
 - name: Disable all RHSM repositories
-  rhsm_repository:
+  rhsm_repository_conf:
     name: '*'
     state: disabled
 
 - name: Enable all repositories starting with rhel-6-server
-  rhsm_repository:
+  rhsm_repository_conf:
     name: rhel-6-server*
     state: enabled
 
 - name: Disable all repositories except rhel-7-server-rpms
-  rhsm_repository:
+  rhsm_repository_conf:
     name: rhel-7-server-rpms
     purge: True
 '''

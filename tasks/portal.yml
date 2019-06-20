@@ -27,7 +27,9 @@
         - import_tasks: register.yml
 
 - name: Configure repository subscriptions
-  rhsm_repository:
+  # TODO(jfrancoa): Change back into rhsm_repository once
+  # we start using Ansible 2.8.
+  rhsm_repository_conf:
     name: "{{ rhsm_repos }}"
     purge: "{{ rhsm_repos_purge | default(omit) }}"
     state: "{{ rhsm_repos_state | default(omit) }}"
