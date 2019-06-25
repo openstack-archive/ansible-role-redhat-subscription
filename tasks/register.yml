@@ -14,3 +14,10 @@
   tags:
     - rhsm
     - rhsm_register
+  # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1715958
+  # A regression in Satellite added a delay to the registration to happen.
+  # To counter this problem we retry 5 times with a delay of 10 seconds between
+  # retries.
+  retries: 5
+  delay: 10
+  until: not subscrition_result.failed
