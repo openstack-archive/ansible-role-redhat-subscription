@@ -34,6 +34,7 @@ Role Variables
 | `rhsm_server_prefix` | `/subscription` or `/rhsm` | RHS server prefix. `/subscription` when using registering via `portal`, `/rhsm` when registering via `satellite`. |
 | `rhsm_insecure` | `False` | Disable certificate validation. |
 | `rhsm_ssl_verify_depth` | `3` | Depths certificates should be validated when checking. |
+| `rhsm_rhsm_proxy_proto` | `[undefined]` | protocol used to reach the proxy server (http or https). |
 | `rhsm_rhsm_proxy_hostname` | `[undefined]` | FQDN of outbound proxy server. |
 | `rhsm_rhsm_proxy_port` | `[undefined]` | Port to use for proxy server. |
 | `rhsm_rhsm_proxy_user` | `[undefined]` | Username to use for proxy server. |

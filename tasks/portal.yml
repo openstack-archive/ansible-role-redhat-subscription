@@ -15,6 +15,10 @@
             consumer_name: "{{ rhsm_consumer_hostname | default(omit) }}"
             force_register: True
             rhsm_baseurl: "{{ rhsm_baseurl | default(omit) }}"
+            server_proxy_hostname: "{{ rhsm_rhsm_proxy_hostname | default(omit) }}"
+            server_proxy_port: "{{ rhsm_rhsm_proxy_port | default(omit) }}"
+            server_proxy_user: "{{ rhsm_rhsm_proxy_user | default(omit) }}"
+            server_proxy_password: "{{ rhsm_rhsm_proxy_password | default(omit) }}"
           register: subscrition_result
           tags:
             - rhsm

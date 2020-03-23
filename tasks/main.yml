@@ -23,6 +23,32 @@
     - rhsm
     - rhsm_conf
 
+- name: Block to set rhsm_package_manager_config_file
+  tags:
+    - rhsm
+    - rhsm_conf
+  block:
+    - name: Set rhsm_package_manager_config_file for yum
+      set_fact:
+        rhsm_package_manager_config_file: /etc/yum.conf
+      when:
+        - ansible_facts.ansible_pkg_mgr == 'yum'
+    - name: Set rhsm_package_manager_config_file for dnf
+      set_fact:
+        rhsm_package_manager_config_file: /etc/dnf/dnf.conf
+      when:
+        - ansible_facts.ansible_pkg_mgr == 'dnf'
+
+- name: Configure proxy settings to package manager
+  ini_file:
+    path: "{{ rhsm_package_manager_config_file }}"
+    section: main
+    option: proxy
+    value: "{{ rhsm_rhsm_proxy_proto | default('http') }}://{{ rhsm_rhsm_proxy_hostname }}:{{ rhsm_rhsm_proxy_port }}"
+  tags:
+    - rhsm
+    - rhsm_conf
+
 - block:
     - include_tasks: "{{ rhsm_method }}.yml"
   tags:
