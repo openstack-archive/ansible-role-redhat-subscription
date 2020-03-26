@@ -24,6 +24,8 @@
     - rhsm_conf
 
 - name: Block to set rhsm_package_manager_config_file
+  when:
+    - rhsm_rhsm_proxy_hostname is defined
   tags:
     - rhsm
     - rhsm_conf
@@ -40,6 +42,8 @@
         - ansible_pkg_mgr == 'dnf'
 
 - name: Configure proxy settings to package manager
+  when:
+    - rhsm_rhsm_proxy_hostname is defined
   ini_file:
     path: "{{ rhsm_package_manager_config_file }}"
     section: main
