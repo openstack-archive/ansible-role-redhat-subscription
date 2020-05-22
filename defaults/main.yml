@@ -2,6 +2,7 @@
 # rhsm_username: joe
 # rhsm_password: secrete
 # rhsm_activation_key: AAA-BBB-CCC-DDD
+# rhsm_release: 8.1
 # rhsm_ord_id: 1234
 # rhsm_autosubscribe: yes # or no (note it's mutually exclusive to rhsm_activation_key)
 

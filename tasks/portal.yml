@@ -8,6 +8,7 @@
             username: "{{ rhsm_username | default(omit) }}"
             password: "{{ rhsm_password | default(omit) }}"
             activationkey: "{{ rhsm_activation_key | default(omit) }}"
+            release: "{{ rhsm_release | default(omit) }}"
             org_id: "{{ rhsm_org_id | default(omit) }}"
             pool_ids: "{{ rhsm_pool_ids | default(omit) }}"
             state: "{{ rhsm_state | default(omit) }}"

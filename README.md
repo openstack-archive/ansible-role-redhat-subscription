@@ -20,6 +20,7 @@ Role Variables
 | `rhsm_username` | `[undefined]` | Red Hat Portal username. |
 | `rhsm_password` | `[undefined]` | Red Hat Portal password. |
 | `rhsm_activation_key` | `[undefined]` | Red Hat Portal Activation Key. |
+| `rhsm_release` | `[undefined]` | RHEL release version (e.g. 8.1). |
 | `rhsm_org_id` | `[undefined]` | Red Hat Portal Organization Identifier. |
 | `rhsm_pool_ids` | `[undefined]` | Red Hat Subscription pool IDs to consume. |
 | `rhsm_state` | `present` | Whether to enable or disable a Red Hat subscription. |
