@@ -10,7 +10,7 @@
 
 - name: SATELLITE | Check for Satellite 6
   uri:
-    url: "{{ rhsm_satellite_url }}/katello/api/ping"
+    url: "{{ rhsm_satellite_url }}/pulp/api/v2/status"
     validate_certs: no
     status_code: 200, 404
   register: _sat6_check
@@ -40,6 +40,13 @@
     rhsm_satellite_version: "{% if _sat5_check['status'] == 200 %}5{% elif _sat6_check['status'] == 200 %}6{% endif %}"
   tags:
     - rhsm_satellite
+
+- name: Fail if Satellite version was not found
+  fail:
+    msg: "Satellite version was not found, you should file a bug"
+  when:
+    - rhsm_satellite_version is defined
+    - not (rhsm_satellite_version | length)
 
 - name: SATELLITE | Run Satellite {{ rhsm_satellite_version }} tasks
   include_tasks: satellite-{{ rhsm_satellite_version }}.yml

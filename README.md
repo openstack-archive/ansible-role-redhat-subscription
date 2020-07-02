@@ -30,7 +30,7 @@ Role Variables
 | `rhsm_repos` | `[]` | The list of repositories to enable or disable. |
 | `rhsm_repos_state` | `[undefined]` | The state of all repos in `rhsm_repos`. The module default is `enabled`.|
 | `rhsm_repos_purge` | `[undefined]` | Whether or not to disable repos not specified in `rhsm_repos`. The module default is `False`. |
-| `rhsm_rhsm_port` | `443` | Port to use when connecting to subscription server. |
+| `rhsm_rhsm_port` | `443` | Port to use when connecting to subscription server. Must be 8443 if a capsule is used otherwise 443 for Satellite or RHN. |
 | `rhsm_server_hostname` | `subscription.rhn.redhat.com` | FQDN of subscription server. |
 | `rhsm_server_prefix` | `/subscription` or `/rhsm` | RHS server prefix. `/subscription` when using registering via `portal`, `/rhsm` when registering via `satellite`. |
 | `rhsm_insecure` | `False` | Disable certificate validation. |

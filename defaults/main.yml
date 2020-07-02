@@ -13,6 +13,7 @@ rhsm_force_register: False
 rhsm_repos: []
 
 ## /etc/rhsm/rhsm.conf settings
+# Port must be changed to 8443 if registration is done against a capsule.
 rhsm_rhsm_port: 443
 rhsm_server_hostname: subscription.rhn.redhat.com
 rhsm_server_prefix: "{{ '/rhsm' if rhsm_method == 'satellite' else '/subscription' }}"
