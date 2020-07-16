@@ -34,6 +34,7 @@ Role Variables
 | `rhsm_server_hostname` | `subscription.rhn.redhat.com` | FQDN of subscription server. |
 | `rhsm_server_prefix` | `/subscription` or `/rhsm` | RHS server prefix. `/subscription` when using registering via `portal`, `/rhsm` when registering via `satellite`. |
 | `rhsm_insecure` | `False` | Disable certificate validation. |
+| `rhsm_simplified_content_access` | `False` | Enable Simplified Content Access. |
 | `rhsm_ssl_verify_depth` | `3` | Depths certificates should be validated when checking. |
 | `rhsm_rhsm_proxy_proto` | `[undefined]` | protocol used to reach the proxy server (http or https). |
 | `rhsm_rhsm_proxy_hostname` | `[undefined]` | FQDN of outbound proxy server. |

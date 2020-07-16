@@ -41,7 +41,7 @@
   when:
     - rhsm_repos | length > 0
     - rhsm_state == 'present'
-    - rhsm_activation_key is not defined or rhsm_method == 'portal'
+    - rhsm_activation_key is not defined or rhsm_method == 'portal' or rhsm_simplified_content_access
   tags:
     - rhsm
     - rhsm_repos

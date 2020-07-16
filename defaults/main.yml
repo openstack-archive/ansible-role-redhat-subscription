@@ -18,6 +18,7 @@ rhsm_rhsm_port: 443
 rhsm_server_hostname: subscription.rhn.redhat.com
 rhsm_server_prefix: "{{ '/rhsm' if rhsm_method == 'satellite' else '/subscription' }}"
 rhsm_insecure: False
+rhsm_simplified_content_access: False
 rhsm_ssl_verify_depth: 3
 # rhsm_rhsm_proxy_proto: ""
 # rhsm_rhsm_proxy_hostname: ""

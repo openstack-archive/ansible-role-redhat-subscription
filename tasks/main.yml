@@ -8,6 +8,7 @@
   debug:
     msg: "rhsm_repos and rhsm_activation_key are exclusive options when using Satellite"
   when:
+    - not rhsm_simplified_content_access
     - rhsm_repos | length > 0
     - rhsm_activation_key is defined
     - rhsm_method == 'satellite'
