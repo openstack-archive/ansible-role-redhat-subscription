@@ -1,12 +1,14 @@
 #!/bin/bash
 
-# ANSIBLE0006: Using command rather than module
+# 303: Using command rather than module
 #   we have a few use cases where we need to use curl and rsync
-# ANSIBLE0016: Tasks that run when changed should likely be handlers
+# 503: Tasks that run when changed should likely be handlers
 #   this requires refactoring roles, skipping for now
-# ANSIBLE0012: Commands should not change things if nothing needs doing
+# 301: Commands should not change things if nothing needs doing
 #   this requires refactoring roles, skipping for now
-SKIPLIST="ANSIBLE0006,ANSIBLE0016,ANSIBLE0012"
+# 106: Role name {} does not match ^[a-z][a-z0-9_]+$ pattern
+#   this isn't in a collection and we'd need to maintain backwards compat
+SKIPLIST="303,503,301,106"
 
 # lint the playbooks separately to avoid linting the roles multiple times
 for DIR in tasks playbooks; do
