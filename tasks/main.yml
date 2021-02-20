@@ -35,12 +35,12 @@
       set_fact:
         rhsm_package_manager_config_file: /etc/yum.conf
       when:
-        - ansible_pkg_mgr == 'yum'
+        - ansible_facts['pkg_mgr'] == 'yum'
     - name: Set rhsm_package_manager_config_file for dnf
       set_fact:
         rhsm_package_manager_config_file: /etc/dnf/dnf.conf
       when:
-        - ansible_pkg_mgr == 'dnf'
+        - ansible_facts['pkg_mgr'] == 'dnf'
 
 - name: Configure proxy settings to package manager
   when:
