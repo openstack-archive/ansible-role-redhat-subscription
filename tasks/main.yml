@@ -50,6 +50,7 @@
     section: main
     option: proxy
     value: "{{ rhsm_rhsm_proxy_proto | default('http') }}://{{ rhsm_rhsm_proxy_hostname }}:{{ rhsm_rhsm_proxy_port }}"
+    mode: 0644
   tags:
     - rhsm
     - rhsm_conf

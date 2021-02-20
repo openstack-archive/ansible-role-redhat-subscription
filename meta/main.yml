@@ -1,8 +1,6 @@
 galaxy_info:
-  author:
-    - Sam Doran
-    - David Critch
-    - Emilien Macchi
+  role_name: redhat-subscription
+  author: tripleo
   description: "Manage Red Hat subscription and repositories."
   company:
   license: Apache 2.0
@@ -13,6 +11,7 @@ galaxy_info:
     versions:
       - 6
       - 7
+      - 8
 
   galaxy_tags:
     - system
