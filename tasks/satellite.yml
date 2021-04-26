@@ -23,7 +23,7 @@
 
 - name: SATELLITE | Set list of services as a fact
   set_fact:
-    service_list: "{{ services.keys() | list | replace('.service', '') }}"
+    service_list: "{{ ansible_facts.services.keys() | list | replace('.service', '') }}"
 
 - name: SATELLITE | Gather package facts
   package_facts:
