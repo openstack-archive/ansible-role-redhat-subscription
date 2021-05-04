@@ -7,7 +7,7 @@
       assert:
         fail_msg: The installed version of subscription-manager is too old.
         that:
-          - packages['subscription-manager'][0]['version'] is version_compare('1.10', '>=')
+          - ansible_facts['packages']['subscription-manager'][0]['version'] is version_compare('1.10', '>=')
   rescue:
     - name: Attempt to update subscription-manager
       yum:
@@ -18,7 +18,7 @@
       assert:
         fail_msg: The installed version of subscription-manager is too old.
         that:
-          - packages['subscription-manager'][0]['version'] is version_compare('1.10', '>=')
+          - ansible_facts['packages']['subscription-manager'][0]['version'] is version_compare('1.10', '>=')
 
 - name: Configure yum plugins
   ini_file:
