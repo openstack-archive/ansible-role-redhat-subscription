@@ -12,11 +12,34 @@
   uri:
     url: "{{ rhsm_satellite_url }}/pulp/api/v2/status"
     validate_certs: no
+    status_code: 200
+  register: _sat6_check_v6
+  run_once: yes
+  ignore_errors: true
+  tags:
+    - rhsm_satellite
+
+- name: SATELLITE | Check for Satellite 6.10
+  uri:
+    url: "{{ rhsm_satellite_url }}/pulp/api/v3/status"
+    validate_certs: no
     status_code: 200, 404
-  register: _sat6_check
+  register: _sat6_check_v610
   run_once: yes
   tags:
     - rhsm_satellite
+  when:
+    - _sat6_check_v6 is failed
+
+- name: Set correct v6 check result
+  set_fact:
+    _sat6_check: "{{ _sat6_check_v6 }}"
+  when: _sat6_check_v6 is success
+
+- name: Set correct v6.10 check result
+  set_fact:
+    _sat6_check: "{{ _sat6_check_v610 }}"
+  when: _sat6_check_v6 is failed
 
 - name: SATELLITE | Gather service facts
   service_facts:
