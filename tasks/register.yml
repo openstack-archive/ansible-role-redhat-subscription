@@ -26,3 +26,4 @@
   retries: 5
   delay: 10
   until: not subscrition_result.failed
+  failed_when: "'The system has been registered' not in subscrition_result.stdout"
