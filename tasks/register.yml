@@ -16,6 +16,8 @@
     server_proxy_user: "{{ rhsm_rhsm_proxy_user | default(omit) }}"
     server_proxy_password: "{{ rhsm_rhsm_proxy_password | default(omit) }}"
   register: subscrition_result
+  environment:
+    SMDEV_CONTAINER_OFF: "{{ rhsm_disable_container_check | bool }}"
   tags:
     - rhsm
     - rhsm_register

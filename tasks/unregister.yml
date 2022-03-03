@@ -1,5 +1,7 @@
 - name: Unregister Red Hat subscription
   command: subscription-manager remove --all
+  environment:
+    SMDEV_CONTAINER_OFF: "{{ rhsm_disable_container_check | bool }}"
   become: true
   tags:
     - rhsm_unregister
