@@ -2,9 +2,12 @@
   uri:
     url: "{{ rhsm_satellite_url }}/rhn/Login.do"
     validate_certs: false
-    status_code: 200, 404
+    status_code:
+      - 200
+      - 404
   register: _sat5_check
   run_once: true
+  ignore_errors: true
   tags:
     - rhsm_satellite
 
@@ -12,55 +15,64 @@
   uri:
     url: "{{ rhsm_satellite_url }}/pulp/api/v2/status"
     validate_certs: false
-    status_code: 200
+    status_code:
+      - 200
   register: _sat6_check_v6
   run_once: true
   ignore_errors: true
   tags:
     - rhsm_satellite
 
-- name: SATELLITE | Check for Satellite 6.10
-  uri:
-    url: "{{ rhsm_satellite_url }}/pulp/api/v3/status"
-    validate_certs: false
-    status_code: 200, 404
-  register: _sat6_check_v610
-  run_once: true
-  tags:
-    - rhsm_satellite
-  when:
-    - _sat6_check_v6 is failed
-
 - name: Set correct v6 check result
   set_fact:
     _sat6_check: "{{ _sat6_check_v6 }}"
-  when: _sat6_check_v6 is success
+  when:
+    - _sat6_check_v6 is success
 
-- name: Set correct v6.10 check result
-  set_fact:
-    _sat6_check: "{{ _sat6_check_v610 }}"
-  when: _sat6_check_v6 is failed
+- name: Block Satellite 6.10
+  when:
+    - _sat6_check_v6 is failed
+  block:
+    - name: SATELLITE | Check for Satellite 6.10
+      uri:
+        url: "{{ rhsm_satellite_url }}/pulp/api/v3/status"
+        validate_certs: false
+        status_code:
+          - 200
+          - 404
+      register: _sat6_check_v610
+      run_once: true
+      tags:
+        - rhsm_satellite
+
+    - name: Set correct v6.10 check result
+      set_fact:
+        _sat6_check: "{{ _sat6_check_v610 }}"
 
 - name: SATELLITE | Gather service facts
   service_facts:
-
-- name: SATELLITE | Set list of services as a fact
-  set_fact:
-    service_list: "{{ ansible_facts.services.keys() | list | replace('.service', '') }}"
-
-- name: SATELLITE | Gather package facts
-  package_facts:
 
 - name: SATELLITE | Start and enable rhsmcertsd
   service:
     name: rhsmcertd
     state: started
     enabled: true
-  when: "'rhsmcertd' in service_list"
+  when:
+    - "'rhsmcertd' in (ansible_facts.services.keys() | replace('.service', ''))"
 
-- name: SATELLITE | Set Satellite version
+- name: SATELLITE | Set Satellite version 5
   set_fact:
-    rhsm_satellite_version: "{% if _sat5_check['status'] == 200 %}5{% elif _sat6_check['status'] == 200 %}6{% endif %}"
+    rhsm_satellite_version: 5
+  when:
+    - (_sat5_check.status | default(400)) == 200
+  tags:
+    - rhsm_satellite
+
+- name: SATELLITE | Set Satellite version 6
+  set_fact:
+    rhsm_satellite_version: 6
+  when:
+    - (_sat6_check.status | default(400)) == 200
   tags:
     - rhsm_satellite
 
@@ -68,12 +80,15 @@
   fail:
     msg: "Satellite version was not found, you should file a bug"
   when:
-    - rhsm_satellite_version is defined
-    - not (rhsm_satellite_version | length)
+    - rhsm_satellite_version is undefined
+
+- name: SATELLITE | Gather package facts
+  package_facts:
 
 - name: SATELLITE | Run Satellite {{ rhsm_satellite_version }} tasks
-  include_tasks: satellite-{{ rhsm_satellite_version }}.yml
-  when: rhsm_state == 'present'
+  include_tasks: "satellite-{{ rhsm_satellite_version }}.yml"
+  when:
+    - rhsm_state == 'present'
   tags:
     - rhsm_satellite
 
@@ -81,7 +96,8 @@
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1717093
 - name: SATELLITE 6 | Install katello-host-tools
-  when: rhsm_satellite_version == '6'
   package:
     name: katello-host-tools
     state: present
+  when:
+    - (rhsm_satellite_version | int) == 6
