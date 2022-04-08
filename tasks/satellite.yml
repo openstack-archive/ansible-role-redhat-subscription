@@ -78,10 +78,3 @@
     - rhsm_satellite
 
 - import_tasks: portal.yml
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1717093
-- name: SATELLITE 6 | Install katello-host-tools
-  when: rhsm_satellite_version == '6'
-  package:
-    name: katello-host-tools
-    state: present
