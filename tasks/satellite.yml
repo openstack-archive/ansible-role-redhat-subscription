@@ -6,6 +6,9 @@
       - 200
       - 404
   register: _sat5_check
+  retries: 3
+  delay: 5
+  until: "'status' in _sat5_check"
   run_once: true
   ignore_errors: true
   tags:
@@ -18,6 +21,9 @@
     status_code:
       - 200
   register: _sat6_check_v6
+  retries: 3
+  delay: 5
+  until: "'status' in _sat6_check_v6"
   run_once: true
   ignore_errors: true
   tags:
@@ -42,6 +48,9 @@
           - 404
       register: _sat6_check_v610
       run_once: true
+      retries: 3
+      delay: 5
+      until: "'status' in _sat6_check_v610"
       tags:
         - rhsm_satellite
 
