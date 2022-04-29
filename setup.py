@@ -17,4 +17,5 @@ import setuptools
 setuptools.setup(
     setup_requires=['pbr'],
     pbr=True,
+    py_modules=[],
     long_description_content_type='text/markdown')

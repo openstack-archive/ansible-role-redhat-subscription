@@ -102,7 +102,7 @@ Example Playbook with Satellite 6
         rhsm_server_hostname: "mysatserver.com"
         rhsm_baseurl: "https://mysatserver.com/pulp/repos"
         rhsm_method: satellite
-        rhsm_insecure: yes
+        rhsm_insecure: true
       roles:
         - openstack.redhat-subscription
 

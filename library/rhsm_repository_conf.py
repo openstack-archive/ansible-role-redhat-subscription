@@ -55,19 +55,19 @@ options:
       - If state is equal to present or disabled, indicates the desired
         repository state.
     choices: [present, enabled, absent, disabled]
-    required: True
+    required: true
     default: "present"
   name:
     description:
       - The ID of repositories to enable.
       - To operate on several repositories this can accept a comma separated
         list or a YAML list.
-    required: True
+    required: true
   purge:
     description:
       - Disable any repositories not listed in the task.
     type: bool
-    default: False
+    default: false
 '''
 
 EXAMPLES = '''
@@ -88,7 +88,7 @@ EXAMPLES = '''
 - name: Disable all repositories except rhel-7-server-rpms
   rhsm_repository_conf:
     name: rhel-7-server-rpms
-    purge: True
+    purge: true
 '''
 
 RETURN = '''

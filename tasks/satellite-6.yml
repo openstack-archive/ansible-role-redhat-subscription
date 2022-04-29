@@ -32,8 +32,8 @@
   yum:
     name: "{{ rhsm_satellite_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
     state: present
-    validate_certs: no
-    disable_gpg_check: yes
+    validate_certs: false
+    disable_gpg_check: true
   register: katello_rpm
 
 # This script is provided by katello-ca-consumer and takes care of deploying

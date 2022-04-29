@@ -5,4 +5,4 @@ skip_list:  # or 'skip_list' to silence them completely
   - no-handler  # Tasks that run when changed should likely be handlers
   - package-latest  # Package installs should not use latest
   - role-name  # Role name {0} does not match ``^[a-z][a-z0-9_]+$`` pattern
-
+  - fqcn-builtins  # Use FQCN for builtin actions.

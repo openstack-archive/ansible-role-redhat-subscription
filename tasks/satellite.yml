@@ -1,20 +1,20 @@
 - name: SATELLITE | Check for Satellite 5
   uri:
     url: "{{ rhsm_satellite_url }}/rhn/Login.do"
-    validate_certs: no
+    validate_certs: false
     status_code: 200, 404
   register: _sat5_check
-  run_once: yes
+  run_once: true
   tags:
     - rhsm_satellite
 
 - name: SATELLITE | Check for Satellite 6
   uri:
     url: "{{ rhsm_satellite_url }}/pulp/api/v2/status"
-    validate_certs: no
+    validate_certs: false
     status_code: 200
   register: _sat6_check_v6
-  run_once: yes
+  run_once: true
   ignore_errors: true
   tags:
     - rhsm_satellite
@@ -22,10 +22,10 @@
 - name: SATELLITE | Check for Satellite 6.10
   uri:
     url: "{{ rhsm_satellite_url }}/pulp/api/v3/status"
-    validate_certs: no
+    validate_certs: false
     status_code: 200, 404
   register: _sat6_check_v610
-  run_once: yes
+  run_once: true
   tags:
     - rhsm_satellite
   when:
@@ -55,7 +55,7 @@
   service:
     name: rhsmcertd
     state: started
-    enabled: yes
+    enabled: true
   when: "'rhsmcertd' in service_list"
 
 - name: SATELLITE | Set Satellite version

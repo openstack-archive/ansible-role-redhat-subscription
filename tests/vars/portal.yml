@@ -3,7 +3,7 @@ rhsm_password: "{{ lookup('env', 'RHSM_PASSWORD') }}"
 rhsm_pool_ids: "{{ lookup('env', 'RHSM_POOL_ID') }}"
 rhsm_repos: "{{ repos[ansible_distribution ~ '-' ~ ansible_distribution_major_version] }}"
 # rhsm_state: present
-# rhsm_repos_purge: True
+# rhsm_repos_purge: true
 
 repos:
   RedHat-6:
