@@ -15,7 +15,7 @@
     server_proxy_port: "{{ rhsm_rhsm_proxy_port | default(omit) }}"
     server_proxy_user: "{{ rhsm_rhsm_proxy_user | default(omit) }}"
     server_proxy_password: "{{ rhsm_rhsm_proxy_password | default(omit) }}"
-  register: subscrition_result
+  register: subscription_result
   environment:
     SMDEV_CONTAINER_OFF: "{{ rhsm_disable_container_check | bool }}"
   tags:
@@ -27,7 +27,7 @@
   # retries.
   retries: 5
   delay: 10
-  until: falset subscrition_result.failed
+  until: false subscription_result.failed
   failed_when:
-    - "subscrition_result.stdout is defined"
-    - "'The system has been registered' not in subscrition_result.stdout"
+    - "subscription_result.stdout is defined"
+    - "'The system has been registered' not in subscription_result.stdout"
