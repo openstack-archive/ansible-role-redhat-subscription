@@ -16,7 +16,7 @@
 
 - name: SATELLITE | Check for Satellite 6
   uri:
-    url: "{{ rhsm_satellite_url }}/pulp/api/v2/status"
+    url: "{{ rhsm_satellite_url }}/pulp/api/v2/status/"
     validate_certs: false
     status_code:
       - 200
@@ -41,7 +41,7 @@
   block:
     - name: SATELLITE | Check for Satellite 6.10
       uri:
-        url: "{{ rhsm_satellite_url }}/pulp/api/v3/status"
+        url: "{{ rhsm_satellite_url }}/pulp/api/v3/status/"
         validate_certs: false
         status_code:
           - 200
