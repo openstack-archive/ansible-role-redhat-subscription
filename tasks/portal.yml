@@ -30,6 +30,8 @@
       rescue:
         - name: Clean all local subscription data
           command: subscription-manager clean
+          environment:
+            SMDEV_CONTAINER_OFF: "{{ rhsm_disable_container_check | bool }}"
 
         - import_tasks: register.yml
 

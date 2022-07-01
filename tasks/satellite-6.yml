@@ -40,4 +40,6 @@
 # the katello certificates and prepare the config in RHSM.
 - name: SATELLITE 6 | Execute katello-rhsm-consumer
   shell: katello-rhsm-consumer
+  environment:
+    SMDEV_CONTAINER_OFF: "{{ rhsm_disable_container_check | bool }}"
   when: katello_rpm.changed
