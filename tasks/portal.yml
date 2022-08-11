@@ -22,7 +22,7 @@
             server_proxy_password: "{{ rhsm_rhsm_proxy_password | default(omit) }}"
           register: subscrition_result
           environment:
-            SMDEV_CONTAINER_OFF: "{{ rhsm_disable_container_check | bool }}"
+            SMDEV_CONTAINER_OFF: "{{ rhsm_disable_container_check }}"
           tags:
             - rhsm
             - rhsm_register
@@ -31,7 +31,7 @@
         - name: Clean all local subscription data
           command: subscription-manager clean
           environment:
-            SMDEV_CONTAINER_OFF: "{{ rhsm_disable_container_check | bool }}"
+            SMDEV_CONTAINER_OFF: "{{ rhsm_disable_container_check }}"
 
         - import_tasks: register.yml
 
